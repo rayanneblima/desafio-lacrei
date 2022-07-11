@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "color": "purple",
+    "timer": "1000"
+  },
+  {
+    "id": 2,
+    "color": "pink",
+    "timer": "1500"
+  },
+  {
+    "id": 3,
+    "color": "green",
+    "timer": "500"
+  }
+]

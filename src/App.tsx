@@ -1,25 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import Card from './components/Card';
+
 import './App.css';
+import { CardType } from './types/Card.types';
 
 function App() {
+  const [cards, setCards] = useState<Array<CardType>>([]);
+  const [error, setError] = useState<string>('');
+
+  interface Card {
+    id: number;
+    color: string;
+    timer: number;
+  }
+
+  function handleFetchData() {
+    fetch("./data.json")
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.message);
+      });
+  }
+
+  useEffect(() => {
+    handleFetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <main className="App">
+      <header>
+        <h1>Cards and Timer</h1>
       </header>
-    </div>
+
+      <section>
+        {
+          cards.length
+          ? cards.map((card: Card, index: number) => <Card card={card} key={index} />)
+          : (
+            <>
+              <p>Não foi possível renderizar os cards.</p>
+              { error && <p>Erro: { error }</p> }
+            </>
+          )
+        }
+      </section>
+    </main>
   );
 }
 
