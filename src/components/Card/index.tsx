@@ -32,7 +32,7 @@ const Card:React.FC<Props> = ({ card }) => {
       bgColor={bgColor}
     >
       { mustShowLoader && <Loader loader={{ color: card.color }} /> }
-      { mustShowMessage && <span>Tempo de Duração: {card.timer}</span> }
+      { mustShowMessage && <span>Tempo de Duração: {card.timer} milissegundos</span> }
     </Box>
   )
 }
